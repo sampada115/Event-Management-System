@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cancel Registration</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .card { background: white; padding: 30px; border-radius: 8px; max-width: 400px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        .warning { background: #fff3cd; color: #856404; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+        .info { margin: 10px 0; color: #555; }
+        .btn-confirm { background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 48%; }
+        .btn-back { background: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 48%; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-confirm:hover { background: #c82333; }
+        .btn-back:hover { background: #5a6268; }
+        .actions { display: flex; justify-content: space-between; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Cancel Registration</h2>
+
+        <div class="warning">
+            Are you sure you want to cancel this registration? This cannot be undone.
+        </div>
+
+        <p class="info">Registration ID: <strong th:text="${registration.id}"></strong></p>
+        <p class="info">Date: <strong th:text="${registration.registrationDate}"></strong></p>
+        <p class="info">Status: <strong th:text="${registration.status}"></strong></p>
+
+        <div class="actions">
+            <form th:action="@{/registration/cancel/{id}(id=${registration.id})}" method="post">
+                <button class="btn-confirm" type="submit">Yes, Cancel</button>
+            </form>
+            <a class="btn-back" href="/registration/all">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>
