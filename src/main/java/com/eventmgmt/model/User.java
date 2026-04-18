@@ -1,12 +1,21 @@
 package com.eventmgmt.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class User {
 
+    @Id
     private Long id;
+
     private String name;
     private String email;
     private String password;
     private Role role;
+
+    public User() {
+    }
 
     public User(Long id, String name, String email, String password, Role role) {
         this.id = id;
