@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Events</title>
+<style>
+body{font-family:Arial;background:#f2f2f2;padding:30px;}
+.card{background:white;padding:30px;max-width:900px;margin:auto;border-radius:10px;}
+table{width:100%;border-collapse:collapse;}
+th,td{padding:12px;border-bottom:1px solid #ddd;}
+th{background:#4CAF50;color:white;}
+a.btn{background:#28a745;color:white;padding:8px 12px;text-decoration:none;border-radius:5px;}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Available Events</h1>
+
+<table>
+<tr>
+<th>Event ID</th>
+<th>Name</th>
+<th>Available Seats</th>
+<th>Action</th>
+</tr>
+
+<tr th:each="event : ${events}">
+<td th:text="${event.eventId}"></td>
+<td th:text="${event.name}"></td>
+<td th:text="${event.availableSeats.size()}"></td>
+<td>
+<a class="btn"
+th:href="@{/events/book/{id}(id=${event.eventId})}">
+Book Now
+</a>
+</td>
+</tr>
+
+</table>
+</div>
+</body>
+</html>

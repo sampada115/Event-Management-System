@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Success</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:#f2f2f2;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    max-width:700px;
+    margin:auto;
+    border-radius:10px;
+}
+
+.buttons{
+    margin-top:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 18px;
+    margin-right:10px;
+    border-radius:6px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+}
+
+.book{ background:#007bff; }
+.cancel{ background:#dc3545; }
+.back{ background:#6c757d; }
+</style>
+</head>
+
+<body>
+<div class="card">
+
+<h1>Booking Successful 🎉</h1>
+
+<p><b>Event:</b> <span th:text="${event.name}"></span></p>
+<p><b>Seat:</b> <span th:text="${seat.seatId}"></span></p>
+<p><b>Ticket ID:</b> <span th:text="${ticket.ticketId}"></span></p>
+<p><b>Ticket Type:</b> <span th:text="${ticket.type}"></span></p>
+<p><b>Payment Method:</b> <span th:text="${method}"></span></p>
+<p><b>Payment:</b> ₹<span th:text="${payment.amount}"></span></p>
+<p><b>Status:</b> <span th:text="${payment.status}"></span></p>
+
+<div class="buttons">
+
+<a href="/events" class="btn book">Book Another Event</a>
+
+<a th:href="@{/registration/cancel/{id}(id=${registration.id})}"
+class="btn cancel">
+Cancel Booking
+</a>
+
+<a href="javascript:history.back()" class="btn back">
+Back
+</a>
+
+</div>
+
+</div>
+</body>
+</html>

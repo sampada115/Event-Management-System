@@ -1,6 +1,9 @@
-package com.eventmgmt.event_management.facade;
+package com.eventmgmt.facade;
 
-import com.eventmgmt.event_management.model.*;
+import com.eventmgmt.model.Event;
+import com.eventmgmt.model.Seat;
+import com.eventmgmt.model.Ticket;
+import com.eventmgmt.model.enums.TicketType;
 
 public class BookingFacade {
 

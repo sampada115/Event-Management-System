@@ -1,4 +1,4 @@
-package com.eventmgmt.model;
+package com.eventmgmt.model.enums;
 
 public enum SeatStatus {
     AVAILABLE,

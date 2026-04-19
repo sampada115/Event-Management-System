@@ -1,5 +1,5 @@
-package com.eventmgmt.event_management.model;
-
+package com.eventmgmt.model;
+import com.eventmgmt.model.enums.SeatStatus;
 public class Seat {
 
     private String seatId;

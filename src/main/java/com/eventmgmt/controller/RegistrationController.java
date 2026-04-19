@@ -1,6 +1,11 @@
 package com.eventmgmt.controller;
 
-import com.eventmgmt.model.Registration;
+import com.eventmgmt.command.CancelRegistrationCommand;
+import com.eventmgmt.command.CommandInvoker;
+import com.eventmgmt.command.RegisterCommand;
+import com.eventmgmt.model.*;
+import com.eventmgmt.model.enums.PaymentStatus;
+import com.eventmgmt.model.enums.TicketType;
 import com.eventmgmt.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    // DIP — depends on RegistrationService abstraction
     @Autowired
     private RegistrationService registrationService;
 
@@ -29,10 +33,45 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerForEvent(Model model) {
-        Registration reg = registrationService.confirmRegistration();
-        model.addAttribute("message", "Registration confirmed! ID: " + reg.getId());
+
+        // Command Pattern
+        CommandInvoker invoker = new CommandInvoker();
+        invoker.setCommand(
+    new RegisterCommand(
+        registrationService,
+        "E101",
+        "S1"
+    )
+);
+        invoker.run();
+
+        // Real Event object
+        Event event = new Event("E101", "Tech Conference", 10);
+
+        // Book seat
+        Seat seat = event.getAvailableSeats().get(0);
+        seat.bookSeat();
+
+        // Generate ticket
+        Ticket ticket = new Ticket("T" + System.currentTimeMillis(),
+                seat,
+                TicketType.VIP);
+
+        // Payment object
+        Payment payment = new Payment.Builder()
+                .amount(999.0)
+                .status(PaymentStatus.SUCCESS)
+                .build();
+
+        model.addAttribute("message", "Registration confirmed successfully!");
+        model.addAttribute("event", event);
+        model.addAttribute("seat", seat);
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("payment", payment);
+
         model.addAttribute("registrations",
                 registrationService.getAllRegistrations());
+
         return "my-registrations";
     }
 
@@ -45,10 +84,19 @@ public class RegistrationController {
 
     @PostMapping("/cancel/{id}")
     public String cancelRegistration(@PathVariable Long id, Model model) {
-        registrationService.cancelRegistration(id);
-        model.addAttribute("message", "Registration cancelled successfully.");
+
+        CommandInvoker invoker = new CommandInvoker();
+        invoker.setCommand(
+                new CancelRegistrationCommand(registrationService, id)
+        );
+        invoker.run();
+
+        model.addAttribute("message",
+                "Registration cancelled successfully.");
+
         model.addAttribute("registrations",
                 registrationService.getAllRegistrations());
+
         return "my-registrations";
     }
 }

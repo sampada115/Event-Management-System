@@ -1,5 +1,5 @@
 package com.eventmgmt.model;
-
+import com.eventmgmt.model.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
