@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Success</title>
+<title>Booking Success</title>
 
 <style>
 body{
@@ -12,33 +12,34 @@ body{
 
 .card{
     background:white;
-    padding:30px;
     max-width:700px;
     margin:auto;
+    padding:30px;
     border-radius:10px;
 }
 
 .buttons{
-    margin-top:30px;
+    margin-top:25px;
 }
 
 .btn{
     display:inline-block;
     padding:12px 18px;
     margin-right:10px;
-    border-radius:6px;
     text-decoration:none;
     color:white;
+    border-radius:6px;
     font-weight:bold;
 }
 
-.book{ background:#007bff; }
-.cancel{ background:#dc3545; }
-.back{ background:#6c757d; }
+.book{background:#007bff;}
+.cancel{background:#dc3545;}
+.back{background:#6c757d;}
 </style>
 </head>
 
 <body>
+
 <div class="card">
 
 <h1>Booking Successful 🎉</h1>
@@ -55,9 +56,8 @@ body{
 
 <a href="/events" class="btn book">Book Another Event</a>
 
-<a th:href="@{/registration/cancel/{id}(id=${registration.id})}"
-class="btn cancel">
-Cancel Booking
+<a href="/registration/all" class="btn cancel">
+My Registrations
 </a>
 
 <a href="javascript:history.back()" class="btn back">
@@ -67,5 +67,6 @@ Back
 </div>
 
 </div>
+
 </body>
 </html>
